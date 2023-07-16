@@ -44,15 +44,15 @@
                             <li v-for="(category, i) in categoryList" :key="i">
                                 <a :href="category.src" data-uk-scroll="uk-scroll">{{ category.title }}</a>
                             </li>
-                            <!--                            <li><a href="#home" data-uk-scroll="uk-scroll">首页</a></li>-->
                         </ul>
                     </div>
                     <!--桌面菜单结束 -->
                     <!-- 页眉桌面按钮启动 -->
-                    <div class="ml-40 header-btn">
-                        <a href="#contact" class="theme-btn theme-btn-md theme-btn-primary"
+                    <div class="ml-20 header-btn">
+                        <a href="#counter" class="px-20"
                            data-uk-scroll="offset: 80;">
-                            <span class="theme-btn-text">Contact Me</span></a>
+                            <img src="static/picture/culture.png" alt="culture">
+                        </a>
                     </div>
                     <!-- 页眉桌面按钮结束 -->
                     <!-- 移动菜单触发器启动 -->
@@ -81,8 +81,8 @@
         <!-- 移动导航端 -->
         <!-- 移动按钮启动 -->
         <div class="px-20 mt-40">
-            <a href="#contact" class="theme-btn theme-btn-md theme-btn-primary" target="_self">
-                <span class="theme-btn-text">联系我</span></a>
+            <a href="#counter" class="theme-btn theme-btn-md theme-btn-primary" target="_self">
+                <img src="static/picture/culture.png" alt="culture"></a>
         </div>
         <!-- 移动按钮末端 -->
     </div>
@@ -106,7 +106,7 @@
                                 助力乡村振兴
                             </h1>
                         </div>
-                        <form>
+                        <form action="#" onclick="subscription()">
                             <div class="subscription-cont"
                                  data-uk-scrollspy="cls: uk-animation-slide-right-medium; repeat: true">
                                 <div class="form-group my-10">
@@ -149,23 +149,27 @@
 </section>
 <!-- 截面起始端 -->
 <!-- 计数器启动 -->
-<div class="banner-dark-with-bg-img py-120 " id="directory"
-     style="background-image: url('static/image/counter-bg2.jpg');">
-    <div class="uk-container">
-        <div data-uk-grid="">
-            <div class="uk-width-1-2@s uk-width-1-4@m" v-for="(item, i) in directoryList" :key="i">
-                <div class="counter-box-one">
-                    <div class="counter-number text-white mb-15">
-                        <span class="scroll-counter" data-counter-time="3000">{{ item.counter }}</span>{{ item.suffix }}
-                    </div>
-                    <div class="meta-text meta-text-16 font-weight-600 text-white">
-                        {{ item.title }}
+<section id="counter" class="page-section">
+    <div class="banner-dark-with-bg-img py-120 " id="directory"
+         style="background-image: url('static/image/video-bg.jpg');">
+        <div class="uk-container">
+            <div data-uk-grid="">
+                <div class="uk-width-1-2@s uk-width-1-4@m" v-for="(item, i) in directoryList" :key="i">
+                    <div class="counter-box-one">
+                        <div class="counter-number text-white mb-15">
+                            <span class="scroll-counter" data-counter-time="3000">{{
+                                    item.counter
+                                }}</span>{{ item.suffix }}
+                        </div>
+                        <div class="meta-text meta-text-16 font-weight-600 text-white">
+                            {{ item.title }}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 <!-- 对端 -->
 <!-- 关于开始部分-->
 <section id="folk-literature" class="page-section">
@@ -787,7 +791,7 @@
 </section>
 
 <section id="folk-custom" class="page-section">
-    <div class="py-120">
+    <div class="py-95">
         <div class="uk-container">
             <!-- Section Title Starts -->
             <div class="section-title-cont section-title-centered mb-80"
@@ -805,15 +809,16 @@
             <!-- Vertical Tabs Start -->
             <div data-uk-grid="" data-uk-scrollspy="cls: uk-animation-fade; repeat: true">
                 <div class="uk-width-1-4@m">
-                    <ul class="vertical-tab-list" data-uk-tab="connect: #chapter-summary; animation: uk-animation-fade">
+                    <ul class="vertical-tab-list"
+                        data-uk-tab="connect: #chapter-summary-two; animation: uk-animation-fade">
                         <li v-for="(category,i) in categoryList" :key="i">
                             <a href="#">{{ category.title }}</a>
                         </li>
                     </ul>
                 </div>
                 <div class="uk-width-3-4@m">
-                    <ul id="chapter-summary" class="uk-switcher">
-                        <li v-for="(category,i) in categoryList" :key="i">
+                    <ul id="chapter-summary-two" class="uk-switcher">
+                        <li v-for="(category,i) in categoryList" :key="i" style="font-size: 30px">
                             {{ category.desc }}
                         </li>
                     </ul>
@@ -860,6 +865,7 @@
             <div class="footer-logo uk-text-center">
                 <a href="index.html" style="height: 100%; width: 100%;">
                     <img src="static/picture/china.png" alt="Lekhak">
+                    <img src="static/picture/revitalize.png" alt="revitalize">
                 </a>
             </div>
             <nav class="footer-nav mt-25">
@@ -902,5 +908,6 @@
 <!-- Vue3 JS-->
 <script src="static/js/vue-template.js"></script>
 <script src="static/js/calligraphy.js"></script>
+<script src="static/js/other.js"></script>
 </body>
 </html>
