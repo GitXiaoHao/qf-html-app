@@ -62,6 +62,7 @@
     background: linear-gradient(to bottom,transparent 50%,#222);
 }
 .card h1{
+    color: white;
     position: absolute;
     top: 370px;
     transition: 0.5s;
@@ -286,5 +287,458 @@
         background-color: plum;
         /* 模糊度 */
         filter: blur(5px);
+    }
+}
+
+
+
+
+.hover {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /*flex-wrap: wrap;*/
+    justify-items: center;
+    /* 开启3D效果 */
+    transform-style: preserve-3d;
+}
+.hover .folk-card{
+    /* 相对定位 */
+    position: relative;
+    width: 350px;
+    height: 320px;
+    margin: 20px;
+    /* 开启3D效果 */
+    transform-style: preserve-3d;
+    /* 视距 */
+    perspective: 1000px;
+}
+.hover .folk-card .box{
+    /* 绝对定位 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    /* 设置过渡 */
+    transition: 1s ease;
+}
+.hover .folk-card .box .img-box{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.hover .folk-card .box .img-box img{
+    width: 100%;
+    height: 100%;
+    /* 保持原有的尺寸比例，裁切长边 */
+    /*object-fit: cover;*/
+}
+.hover .folk-card .box .con-box{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 隐藏旋转div元素的背面 */
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    /* 默认沿Y轴旋转180度（在背面） */
+    transform: rotateY(180deg);
+}
+.hover .folk-card .box .con-box .text{
+    color: #fff;
+    padding: 20px;
+    /* 渐变背景 */
+    background: linear-gradient(30deg,#514a9d,#24c6dc);
+    /* 默认沿Z轴偏移100px */
+    transform: translateZ(100px);
+}
+.hover .folk-card .box .con-box div h2{
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+.hover .folk-card .box .con-box div p{
+    font-size: 15px;
+    text-align: justify;
+    margin-top: 5px;
+}
+.hover .folk-card:hover .box{
+    /* 鼠标移入，盒子旋转180度 */
+    transform: rotateY(180deg);
+}
+
+
+
+
+
+
+.con-box .btn{
+    position: relative;
+    width: 200px;
+    height: 60px;
+    margin: 30px;
+    background-color: transparent;
+}
+.con-box .btn a{
+    /* 绝对定位 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 透明度为0.05的白色背景 */
+    background: rgba(255,255,255,0.05);
+    /* 阴影 */
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    /* 上下边框 */
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    /* 圆角 */
+    border-radius: 30px;
+    color: #fff;
+    z-index: 1;
+    font-weight: 400;
+    /* 字间距 */
+    letter-spacing: 1px;
+    /* 去下划线 */
+    text-decoration: none;
+    /* 动画过渡 */
+    transition: 0.5s;
+    /* 溢出隐藏 */
+    overflow: hidden;
+    /* 背景模糊 */
+    backdrop-filter: blur(15px);
+}
+.con-box .btn:hover a{
+    letter-spacing: 5px;
+}
+/* 制作扫光效果 */
+.con-box .btn a::before{
+    content: "";
+    /* 绝对定位 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    /* 渐变背景 透明到白色 */
+    background: linear-gradient(to right,transparent,rgba(255,255,255,0.15));
+    /* 沿X轴倾斜45度，向右平移0像素 */
+    transform: skewX(45deg) translateX(0);
+    transition: 0.5s;
+}
+.con-box .btn:hover a::before{
+    /* 沿X轴倾斜45度，向右平移200% */
+    transform: skewX(45deg) translateX(200%);
+}
+/* 制作按钮上下两个发光层 */
+.con-box .btn::before,
+.con-box .btn::after{
+    content: "";
+    /* 绝对定位，横向居中 */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 10px;
+    /* 自定义颜色属性--c, 可通过var函数调用 */
+    /* --c: gold; */
+    background: var(--c);
+    border-radius: 5px;
+    box-shadow:
+            0 0 5px var(--c),
+            0 0 15px var(--c),
+            0 0 30px var(--c),
+            0 0 60px var(--c)
+;
+    transition: 0.5s;
+}
+.con-box .btn::before{
+    bottom: -5px;
+}
+.con-box .btn::after{
+    top: -5px;
+}
+.con-box .btn:hover::before,
+.con-box .btn:hover::after{
+    height: 50%;
+    width: 80%;
+    border-radius: 15px;
+    transition-delay: 0.3s;
+}
+.con-box .btn:hover::before{
+    bottom: 0;
+}
+.con-box .btn:hover::after{
+    top: 0;
+}
+/* 分别设置自定义颜色属性--c */
+.con-box .btn:nth-child(1)::before,
+.con-box .btn:nth-child(1)::after{
+    --c: #12c2e9;
+}
+.con-box .btn:nth-child(2)::before,
+.con-box .btn:nth-child(2)::after{
+    --c: #c471ed;
+}
+.con-box .btn:nth-child(3)::before,
+.con-box .btn:nth-child(3)::after{
+    --c: #f64f59;
+}
+
+
+
+
+
+.folk-img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    height: 300px;
+}
+.folk-img-card{
+    /* 绝对定位 */
+    position: absolute;
+    background-color: #fff;
+    width: 530px;
+    height: 100px;
+    /* 弹性布局 */
+    display: flex;
+    /* 将元素靠边对齐 */
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    border-radius: 100px 20px 20px 100px;
+    opacity: 0;
+    /* 执行动画:动画名称 时长 线性的 无限次播放 */
+    animation: animate 15s linear infinite;
+    /* 这里我们需要给每一个卡片设置一个不同的动画延迟时间 */
+    /* 用到自定义属性,我们设置一个自定义属性--d */
+    /* 通过var函数调用自定义属性--d,计算出动画延迟时间 */
+    animation-delay: calc(3s * var(--d));
+}
+/* 鼠标移入,动画暂停 */
+.folk-img:hover .folk-img-card{
+    animation-play-state: paused;
+}
+.folk-img-card .content{
+    display: flex;
+    align-items: center;
+}
+.folk-img-card .img{
+    width: 90px;
+    height: 90px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 50%;
+    /* 阴影 */
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+.folk-img-card .img img{
+    width: 100%;
+    height: 100%;
+    /* 对图片进行剪切,保留原始比例 */
+    object-fit: cover;
+    border-radius: 50%;
+}
+.folk-img-card .detail{
+    margin-left: 100px;
+}
+.folk-img-card .detail span{
+    display: block;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.folk-img-card .detail p{
+    max-width: 230px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.folk-img-card a{
+    font-size: 14px;
+    text-decoration: none;
+    background: linear-gradient(to bottom,#fbc5ed,#a6c1ee);
+    padding: 7px 18px;
+    color: #fff;
+    border-radius: 25px;
+}
+
+/* 定义动画 */
+@keyframes animate {
+    0%{
+        opacity: 0;
+        transform: translateY(100%) scale(0.5);
+    }
+    5%,20%{
+        opacity: 0.4;
+        transform: translateY(100%) scale(0.7);
+    }
+    25%,40%{
+        opacity: 1;
+        transform: translateY(0%) scale(1);
+    }
+    45%,60%{
+        opacity: 0.4;
+        transform: translateY(-100%) scale(0.7);
+    }
+    65%,100%{
+        opacity: 0;
+        transform: translateY(-100%) scale(0.5);
+    }
+}
+
+
+
+
+
+.music{
+    /* 弹性布局 水平垂直居中 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.music-card{
+    /* 相对定位 */
+    position: relative;
+    /* 弹性布局 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* 允许换行 */
+    flex-wrap: wrap;
+    padding: 30px;
+}
+.music-card .music-card-item{
+    position: relative;
+    max-width: 300px;
+    height: 315px;
+    background-color: #fff;
+    margin: 30px 15px;
+    padding: 20px 15px;
+    border-radius: 5px;
+    /* 阴影 */
+    box-shadow: 0 5px 200px rgba(0,0,0,0.5);
+    /* 动画过渡 */
+    transition: 0.3s ease-in-out;
+}
+.music-card .music-card-item:hover{
+    height: 520px;
+}
+.music-card .music-card-item .img-box{
+    position: relative;
+    width: 260px;
+    height: 260px;
+    border-radius: 5px;
+    /* 溢出隐藏 */
+    overflow: hidden;
+    top: -60px;
+    left: 10px;
+    /* 阴影 */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.music-card .music-card-item .img-box img{
+    width: 100%;
+    height: 100%;
+}
+.music-card .music-card-item .text-box{
+    position: relative;
+    margin-top: -140px;
+    padding: 10px 15px;
+    text-align: center;
+    color: #111;
+    /* 设置元素不可见 */
+    visibility: hidden;
+    /* 不透明度 */
+    opacity: 0;
+    transition: 0.3s ease-in-out;
+}
+.music-card .music-card-item .text-box p{
+    text-align: left;
+    line-height: 25px;
+    margin-top: 10px;
+    font-size: 15px;
+    color: #555;
+
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;      /* 可以显示的行数，超出部分用...表示*/
+    -webkit-box-orient: vertical;
+}
+.music-card .music-card-item:hover .text-box{
+    /* 鼠标移入，设置元素可见 */
+    visibility: visible;
+    opacity: 1;
+    margin-top: -40px;
+    /* 动画延迟0.2秒 */
+    transition-delay: 0.2s;
+}
+
+
+/* CSS */
+.button-64 {
+    align-items: center;
+    background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+    border: 0;
+    border-radius: 8px;
+    box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    display: flex;
+    font-family: Phantomsans, sans-serif;
+    font-size: 20px;
+    /*justify-content: center;*/
+    line-height: 1em;
+    max-width: 100%;
+    min-width: 160px;
+    padding: 3px;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.button-64:active,
+.button-64:hover {
+    outline: 0;
+}
+
+.button-64 span {
+    background-color: rgb(5, 6, 45);
+    padding: 16px 24px;
+    border-radius: 6px;
+    width: 100%;
+    height: 100%;
+    transition: 300ms;
+}
+
+.button-64:hover span {
+    background: none;
+}
+
+@media (min-width: 768px) {
+    .button-64 {
+        font-size: 24px;
+        min-width: 240px;
     }
 }

@@ -93,7 +93,7 @@
 <!-- 分区起始位置 -->
 <section id="home" class="page-section">
     <div class="top-banner-two-cont py-120" style="background-image: url('static/image/2.jpg');">
-        <div class="uk-container">
+        <div class="uk-container">1
             <div class="uk-flex-middle" data-uk-grid="">
                 <!-- Banner Left Starts -->
                 <div class="uk-width-1-2@m">
@@ -106,7 +106,7 @@
                                 助力乡村振兴
                             </h1>
                         </div>
-                        <form action="#" onclick="subscription()">
+                        <form action="#">
                             <div class="subscription-cont"
                                  data-uk-scrollspy="cls: uk-animation-slide-right-medium; repeat: true">
                                 <div class="form-group my-10">
@@ -114,13 +114,14 @@
                                         <i class="fa-regular fa-paper-plane"></i>
                                     </div>
                                     <label>
-                                        <input type="email" class="form-input input-white"
+                                        <input type="email" class="form-input input-white" id="email" v-model="email"
                                                placeholder="此处为您的电子邮件">
                                     </label>
                                 </div>
                                 <div class="form-btn my-10">
-                                    <button type="submit" class="theme-btn theme-btn-lg theme-btn-primary">
-                                        <span class="theme-btn-text">订阅</span></button>
+                                    <button type="button" class="theme-btn theme-btn-lg theme-btn-primary"
+                                            :disabled="isDisabled" @click="subscription()">
+                                        <span class="theme-btn-text">{{ ifSubscription }}</span></button>
                                 </div>
                             </div>
                         </form>
@@ -149,7 +150,7 @@
 </section>
 <!-- 截面起始端 -->
 <!-- 计数器启动 -->
-<section id="counter" class="page-section">
+<div id="counter">
     <div class="banner-dark-with-bg-img py-120 " id="directory"
          style="background-image: url('static/image/video-bg.jpg');">
         <div class="uk-container">
@@ -169,7 +170,7 @@
             </div>
         </div>
     </div>
-</section>
+</div>
 <!-- 对端 -->
 <!-- 关于开始部分-->
 <section id="folk-literature" class="page-section">
@@ -184,27 +185,34 @@
                     <div class="tag-after"></div>
                 </div>
                 <h2 class="section-title">
-                    关于
+                    分类
                 </h2>
             </div>
-            <!-- 章节标题结束 -->
-            <div class="uk-flex-middle" data-uk-grid="">
-                <!-- Info Starts -->
-                <div class="uk-width-1-2@m">
-                    <div class="mt-40 mt-md-0" data-uk-scrollspy="cls: uk-animation-slide-right-medium; repeat: true">
-
-                    </div>
-                </div>
-                <div class="uk-width-1-2@m">
-                    <div class="mt-40 mt-md-0" data-uk-scrollspy="cls: uk-animation-slide-right-medium; repeat: true">
-                        <div class="mt-40">
-
+        </div>
+        <!-- 章节标题结束 -->
+        <div class="uk-flex-middle" data-uk-grid=""
+             data-uk-scrollspy="cls: uk-animation-slide-bottom-small; repeat: true">
+            <div class="hover mb-80 uk-width-3-3@m">
+                <div class="folk-card" v-for="(category,i) in categoryList" :key="i">
+                    <div class="box">
+                        <div class="img-box">
+                            <img :src="category.imgSrc" alt="">
+                        </div>
+                        <div class="con-box">
+                            <div class="text">
+                                <div>
+                                    <h2>{{ category.title }}</h2>
+                                    <p>{{ category.desc }}</p>
+                                </div>
+                                <div class="btn"><a href="#">了解详情</a></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- Info Endss -->
             </div>
+            <!-- Info Endss -->
         </div>
+
     </div>
     <div class="py-120 bg-gray-100">
         <div class="uk-container">
@@ -238,8 +246,21 @@
                 <!-- 图像开始 -->
                 <div class="uk-width-1-2@m">
                     <div class="mt-40 mt-md-0" data-uk-scrollspy="cls: uk-animation-slide-right-medium; repeat: true">
-                        <div class="uk-text-center uk-text-right@m">
-                            <img src="static/picture/zhuge.png" alt="Book" width="400" height="600">
+                        <div class="uk-text-center uk-text-right@m folk-img">
+                            <!-- --d是自定义属性,可通过var函数对其调用 -->
+                            <div class="folk-img-card" :style="{'--d': i}" v-for="(featured,i) in featuredList"
+                                 :key="i">
+                                <div class="content">
+                                    <div class="img">
+                                        <img :src="featured.imgSrc" alt="">
+                                    </div>
+                                    <div class="detail">
+                                        <span>{{ featured.title }}</span>
+                                        <p>{{ featured.desc }}</p>
+                                    </div>
+                                </div>
+                                <a href="#">详情</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -280,7 +301,7 @@
                 <div class="uk-width-2-3@m">
                     <ul id="chapter-summary" class="uk-switcher">
                         <li v-for="(category,i) in categoryList" :key="i">
-
+                            {{ category.desc }}
                         </li>
                     </ul>
                 </div>
@@ -304,42 +325,19 @@
             </div>
             <!-- 小节标题结束 -->
             <div class="uk-flex-middle" data-uk-grid="">
-                <div class="uk-width-1-2@m">
-                    <div data-uk-scrollspy="cls: uk-animation-slide-left-medium; repeat: true">
-                        <div class="banner-text-cont">
-                            <h1 class="banner-section-title text-white">
-                                Learn Graphic Design
-                            </h1>
-                            <div class="banner-desc text-white pt-15">
-                                Maecenas eget nisi eu risus mollis euismod. Aenean nec nisi sed nulla venenatis dictum.
-                                Aliquam imperdiet sapien vel.
+                <div class="uk-width-3-3@m music">
+                    <div class="music-card">
+                        <div class="music-card-item" v-for="(inclusion, i) in inclusionList" :key="i">
+                            <div class="img-box">
+                                <img :src="inclusion.imgSrc" alt="">
+                            </div>
+                            <div class="text-box">
+                                <h2>{{ inclusion.title }}</h2>
+                                <p>{{ inclusion.desc }}</p>
+                                <!-- HTML !-->
+                                <button class="button-64" role="button"><span class="text">详情</span></button>
                             </div>
                         </div>
-                        <div class="mt-40">
-                            <div data-uk-grid="" data-uk-countdown="date: 2023-12-18T09:02:03+00:00">
-                                <div class="uk-width-1-2 uk-width-1-4@s">
-                                    <div class="uk-countdown-days h1 text-primary mb-5"></div>
-                                    <div class="meta-text meta-text-14 font-weight-600 text-white">Days</div>
-                                </div>
-                                <div class="uk-width-1-2 uk-width-1-4@s">
-                                    <div class="uk-countdown-hours h1 text-primary mb-5"></div>
-                                    <div class="meta-text meta-text-14 font-weight-600 text-white">Hours</div>
-                                </div>
-                                <div class="uk-width-1-2 uk-width-1-4@s">
-                                    <div class="uk-countdown-minutes h1 text-primary mb-5"></div>
-                                    <div class="meta-text meta-text-14 font-weight-600 text-white">Minutes</div>
-                                </div>
-                                <div class="uk-width-1-2 uk-width-1-4@s">
-                                    <div class="uk-countdown-seconds h1 text-primary mb-5"></div>
-                                    <div class="meta-text meta-text-14 font-weight-600 text-white">Seconds</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="uk-width-1-2@m">
-                    <div class="mt-40 mt-md-0" data-uk-scrollspy="cls: uk-animation-slide-right-medium; repeat: true">
-                        <img src="static/picture/book-mockup-4.png" alt="Book">
                     </div>
                 </div>
             </div>
@@ -484,28 +482,29 @@
                 </h2>
             </div>
             <!-- Section Title Ends -->
-            <!-- Vertical Tabs Start -->
-            <div data-uk-grid="" data-uk-scrollspy="cls: uk-animation-fade; repeat: true">
-                <div class="uk-width-1-4@m">
-                    <ul class="vertical-tab-list" data-uk-tab="connect: #chapter-summary; animation: uk-animation-fade">
-                        <li v-for="(category,i) in categoryList" :key="i">
-                            <a href="#">{{ category.title }}</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="uk-width-3-4@m">
-                    <ul id="chapter-summary" class="uk-switcher">
-                        <li v-for="(category,i) in categoryList" :key="i">
-                            {{ category.desc }}
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <!-- Vertical Tabs End -->
+
         </div>
     </div>
-
-    <div class="py-120 bg-gray-100">
+    <!-- Vertical Tabs Start -->
+    <div data-uk-grid="" data-uk-scrollspy="cls: uk-animation-fade; repeat: true">
+        <div class="uk-width-3-3@m">
+            <ul class="vertical-tab-list mr-35 ml-35"
+                data-uk-tab="connect: #chapter-summary; animation: uk-animation-fade">
+                <li v-for="(category,i) in categoryList" :key="i">
+                    <a href="#">{{ category.title }}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="uk-width-3-3@m">
+            <ul id="chapter-summary" class="uk-switcher mr-35 ml-35">
+                <li v-for="(category,i) in categoryList" :key="i">
+                    {{ category.desc }}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- Vertical Tabs End -->
+    <div class="py-120 bg-gray-100 mt-35">
         <div class="uk-container">
             <!-- Sub Section Title Starts -->
             <div class="sub-section-title-cont section-title-centered mb-80"
@@ -520,11 +519,12 @@
             <div class="horizontal-accordion uk-clearfix" id="chapter-preview"
                  data-uk-scrollspy="cls: uk-animation-fade; repeat: true">
                 <div class="h-acc-item" @click="switchInclusion(i)" :class="{active: i === isActive}"
-                     style="background-image: url('static/image/page1.jpg');" v-for="(inclusion, i) in inclusionList"
+                     :style="{backgroundImage: `url(${inclusion.imgSrc}`}" v-for="(inclusion, i) in inclusionList"
                      :key="i">
                     <h4 class="h-acc-title">{{ inclusion.title }}</h4>
                     <div class="h-acc-overlay" data-uk-lightbox="uk-lightbox">
-                        <a class="h-acc-zoom-link" href="static/file/page-1-details.jpg">
+                        <a class="h-acc-zoom-link" :href="inclusion.imgSrc">
+                            <!--                            <img :src="inclusion.imgSrc">-->
                             <i class="fa-solid fa-plus"></i>
                         </a>
                     </div>
@@ -570,7 +570,7 @@
                                     <a href="single-blog.html">{{ category.desc }}</a>
                                 </h4>
                                 <div class="blog-img mt-30">
-                                    <img src="static/picture/blog1.jpg" alt="Blog">
+                                    <img :src="category.imgSrc" alt="Blog" style="height: 200px;width: 100%">
                                     <div class="blog-cat-list">
                                         <a href="blog.html">Graphics</a>
                                     </div>
@@ -613,7 +613,7 @@
                     <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
                         <li v-for="(category,i) in categoryList" :key="i">
                             <div class="card">
-                                <div class="photo"><img src="static/picture/jingju.png" alt=""></div>
+                                <div class="photo"><img :src="category.imgSrc" alt=""></div>
                                 <h1>{{ category.title }}</h1>
                                 <h2>{{ category.nickname }}</h2>
                                 <p>{{ category.desc }}</p>
@@ -670,7 +670,7 @@
                     <div data-uk-scrollspy="cls: uk-animation-slide-left-medium; repeat: true">
                         <!-- Sub Section Title Starts -->
                         <div class="sub-section-title-cont mb-40">
-                            <h3 class="section-title mb-15">Leave Us A Reply</h3>
+                            <h3 class="section-title mb-15">给我们留个答复</h3>
                             <div class="bottom-icon">
                                 <span class="icon-circle-left"></span>
                             </div>
@@ -681,29 +681,29 @@
                                 <div class="input-icon">
                                     <i class="fa-regular fa-user"></i>
                                 </div>
-                                <input type="text" class="form-input" placeholder="Name">
+                                <input type="text" class="form-input" placeholder="名称">
                             </div>
                             <div class="form-group mb-25">
                                 <div class="input-icon">
                                     <i class="fa-regular fa-envelope-open"></i>
                                 </div>
-                                <input type="email" class="form-input" placeholder="Email">
+                                <input type="email" class="form-input" placeholder="电子邮件">
                             </div>
                             <div class="form-group mb-25">
                                 <div class="input-icon">
                                     <i class="fa-regular fa-file-lines"></i>
                                 </div>
-                                <input type="text" class="form-input" placeholder="Subject">
+                                <input type="text" class="form-input" placeholder="主题">
                             </div>
                             <div class="form-group mb-25">
                                 <div class="input-icon">
                                     <i class="fa-regular fa-comments"></i>
                                 </div>
-                                <textarea rows="4" class="form-input" placeholder="Message"></textarea>
+                                <textarea rows="4" class="form-input" placeholder="消息"></textarea>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="theme-btn theme-btn-md theme-btn-primary">
-                                    <span class="theme-btn-text">Send Message</span></button>
+                                    <span class="theme-btn-text">发送消息</span></button>
                             </div>
                         </form>
                     </div>
@@ -714,35 +714,18 @@
                     <div data-uk-scrollspy="cls: uk-animation-slide-right-medium; repeat: true">
                         <!-- Sub Section Title Starts -->
                         <div class="sub-section-title-cont mb-40 mt-40 mt-md-0">
-                            <h3 class="section-title mb-15">Frequently Asked Questions</h3>
+                            <h3 class="section-title mb-15">传统文化问题</h3>
                             <div class="bottom-icon">
                                 <span class="icon-circle-left"></span>
                             </div>
                         </div>
                         <!-- Sub Section Title Ends -->
                         <ul data-uk-accordion="uk-accordion">
-                            <li class="uk-open">
-                                <a class="uk-accordion-title" href="#">Who Should Read My Books?</a>
+<!--                            class="uk-open"-->
+                            <li v-for="(problem,i) in problemList" :key="i">
+                                <a class="uk-accordion-title" href="#">{{problem.title}}</a>
                                 <div class="uk-accordion-content">
-                                    <p>Nullam posuere libero nunc, non elementum arcu semper non. Fusce pulvinar
-                                        porttitor felis, vitae egestas nibh tincidunt quis. Sed eu dui euismod libero
-                                        consectetur dignissim.</p>
-                                </div>
-                            </li>
-                            <li>
-                                <a class="uk-accordion-title" href="#">Are My Books A Right Choice For You?</a>
-                                <div class="uk-accordion-content">
-                                    <p>Mauris aliquam, dolor nec euismod placerat, tellus elit tristique ex, id viverra
-                                        nunc ex id ante. Nunc blandit imperdiet libero non porta. Lorem ipsum dolor sit
-                                        amet.</p>
-                                </div>
-                            </li>
-                            <li>
-                                <a class="uk-accordion-title" href="#">What Will You Get In My Books?</a>
-                                <div class="uk-accordion-content">
-                                    <p>Morbi sagittis commodo sagittis. Nam sed neque sit amet ante tristique
-                                        sollicitudin. Sed pulvinar augue ac lacinia fermentum. Donec sit amet turpis nec
-                                        dui fringilla luctus vel ut urna.</p>
+                                    <p>{{problem.desc}}</p>
                                 </div>
                             </li>
                         </ul>
@@ -818,7 +801,7 @@
                 </div>
                 <div class="uk-width-3-4@m">
                     <ul id="chapter-summary-two" class="uk-switcher">
-                        <li v-for="(category,i) in categoryList" :key="i" style="font-size: 30px">
+                        <li v-for="(category,i) in categoryList" :key="i" style="font-size: 25px">
                             {{ category.desc }}
                         </li>
                     </ul>
@@ -843,11 +826,13 @@
             <div class="horizontal-accordion uk-clearfix" id="chapter-preview"
                  data-uk-scrollspy="cls: uk-animation-fade; repeat: true">
                 <div class="h-acc-item" @click="switchInclusion(i)" :class="{active: i === isActive}"
-                     style="background-image: url('static/image/page1.jpg');" v-for="(inclusion, i) in inclusionList"
+                     :style="{backgroundImage: `url(${inclusion.imgSrc})`}"
+                     style="width: 100%;height: 100%;"
+                     v-for="(inclusion, i) in inclusionList"
                      :key="i">
                     <h4 class="h-acc-title">{{ inclusion.title }}</h4>
                     <div class="h-acc-overlay" data-uk-lightbox="uk-lightbox">
-                        <a class="h-acc-zoom-link" href="static/file/page-1-details.jpg">
+                        <a class="h-acc-zoom-link" :href="inclusion.imgSrc">
                             <i class="fa-solid fa-plus"></i>
                         </a>
                     </div>
